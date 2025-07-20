@@ -33,27 +33,17 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppDataSource = void 0;
-const typeorm_1 = require("typeorm");
-const dotenv = __importStar(require("dotenv"));
-const user_entity_1 = require("./users/user.entity");
-const ocr_entity_1 = require("./ocr/ocr.entity");
-const template_entity_1 = require("./templates/template.entity");
-const template_regions_entity_1 = require("./template_regions/template-regions.entity");
-const extracted_answers_entity_1 = require("./extracted_answers/extracted-answers.entity");
-const scan_job_entity_1 = require("./scan_job/scan-job.entity");
-const teacher_entity_1 = require("./teachers/teacher.entity");
-const student_entity_1 = require("./students/student.entity");
-const admin_entity_1 = require("./admins/admin.entity");
-dotenv.config();
-exports.AppDataSource = new typeorm_1.DataSource({
-    type: "mysql",
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT) || 3306,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    entities: [user_entity_1.User, ocr_entity_1.OCRResult, template_entity_1.Template, template_regions_entity_1.TemplateRegion, extracted_answers_entity_1.ExtractedAnswer, scan_job_entity_1.ScanJob, teacher_entity_1.Teacher, student_entity_1.Student, admin_entity_1.Admin],
-    synchronize: true,
-    logging: false,
-});
+exports.PasswordService = void 0;
+const bcrypt = __importStar(require("bcryptjs"));
+class PasswordService {
+    async hashPassword(plainText) {
+        const saltRounds = parseInt(process.env.SALT_ROUNDS || '10', 10);
+        const salt = await bcrypt.genSalt(saltRounds);
+        const hashed = await bcrypt.hash(plainText, salt);
+        return { salt, hashed };
+    }
+    async verify(plainText, hashedPassword) {
+        return bcrypt.compare(plainText, hashedPassword);
+    }
+}
+exports.PasswordService = PasswordService;

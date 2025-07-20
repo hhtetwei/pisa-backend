@@ -8,17 +8,12 @@ import ocrRoutes from './ocr/ocr.routes';
 import templateRoutes from './templates/template.routes';
 import teachersRoute from './teachers/teacher.routes';
 import scanJobsRoute from './scan_job/scan-job.routes'
-// import gradeRoute from './grades/grades.routes'
 import adminRoute from './admins/admin.routes'
 import studentRoute from './students/student.routes'
 import { globalErrorHandler } from "./errorHandler";
 import cors from 'cors';
 
-
-
 dotenv.config();
-
-
 
 const app = express();
 
@@ -37,8 +32,6 @@ app.use('/admins', adminRoute);
 app.use('/students', studentRoute);
 app.use('/templates', templateRoutes);
 app.use('/scan-jobs', scanJobsRoute);
-// app.use('/grade', gradeRoute);
-
 app.use(globalErrorHandler);
 
 const PORT = process.env.PORT || 3000;

@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const scan_job_controller_1 = require("./scan-job.controller");
+const multer_1 = require("../library/multer");
+const router = (0, express_1.Router)();
+router.get('/', scan_job_controller_1.scanJobsController.getScanJobs);
+router.post('/', multer_1.uploadSingle, scan_job_controller_1.scanJobsController.createScanJob);
+router.get('/:id', scan_job_controller_1.scanJobsController.getJobStatus);
+exports.default = router;

@@ -40,11 +40,32 @@ require("reflect-metadata");
 const express_1 = __importDefault(require("express"));
 const dotenv = __importStar(require("dotenv"));
 const ormconfig_1 = require("./ormconfig");
-const user_route_1 = __importDefault(require("./routes/user.route"));
+const user_route_1 = __importDefault(require("./users/user.route"));
+const auth_routes_1 = __importDefault(require("./auth/auth.routes"));
+const ocr_routes_1 = __importDefault(require("./ocr/ocr.routes"));
+const template_routes_1 = __importDefault(require("./templates/template.routes"));
+const teacher_routes_1 = __importDefault(require("./teachers/teacher.routes"));
+const scan_job_routes_1 = __importDefault(require("./scan_job/scan-job.routes"));
+const admin_routes_1 = __importDefault(require("./admins/admin.routes"));
+const student_routes_1 = __importDefault(require("./students/student.routes"));
+const errorHandler_1 = require("./errorHandler");
+const cors_1 = __importDefault(require("cors"));
 dotenv.config();
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 app.use(express_1.default.json());
-app.use("/users", user_route_1.default);
+app.use('/users', user_route_1.default);
+app.use('/auth', auth_routes_1.default);
+app.use('/ocr', ocr_routes_1.default);
+app.use('/teachers', teacher_routes_1.default);
+app.use('/admins', admin_routes_1.default);
+app.use('/students', student_routes_1.default);
+app.use('/templates', template_routes_1.default);
+app.use('/scan-jobs', scan_job_routes_1.default);
+app.use(errorHandler_1.globalErrorHandler);
 const PORT = process.env.PORT || 3000;
 ormconfig_1.AppDataSource.initialize()
     .then(() => {
