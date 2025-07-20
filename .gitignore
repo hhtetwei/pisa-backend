@@ -1,0 +1,14 @@
+# Ignore environment variable files
+.env
+.env.local
+.env.*.local
+
+# Ignore any files ending with .enc (encrypted files, if you have)
+*.enc
+
+# Ignore node_modules (if Node.js project)
+node_modules/
+
+# Ignore logs
+*.log
+logs/
