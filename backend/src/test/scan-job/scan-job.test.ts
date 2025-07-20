@@ -54,7 +54,7 @@ describe('scanJobsService', () => {
       questions: [],
     });
 
-    await expect(scanJobsService.processScanJob('job1')).resolves.toBeDefined();
+    await expect(scanJobsService.processScanJob(1)).resolves.toBeDefined();
 
     expect(ScanJob.update).toHaveBeenCalledWith(
       'job1',

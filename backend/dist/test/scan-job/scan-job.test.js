@@ -48,7 +48,7 @@ describe('scanJobsService', () => {
             score: 90,
             questions: [],
         });
-        await expect(scan_job_service_1.scanJobsService.processScanJob('job1')).resolves.toBeDefined();
+        await expect(scan_job_service_1.scanJobsService.processScanJob(1)).resolves.toBeDefined();
         expect(scan_job_entity_1.ScanJob.update).toHaveBeenCalledWith('job1', expect.objectContaining({ status: 'processing' }));
         expect(scan_job_entity_1.ScanJob.update).toHaveBeenCalledWith('job1', expect.objectContaining({ status: 'completed' }));
     });
